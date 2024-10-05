@@ -9,7 +9,7 @@ import (
 func InitRouter() *mux.Router {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", controllers.HandleGenerateData)
+	r.HandleFunc("/create-user", controllers.HandleCreateUser)
 
 	return r
 }

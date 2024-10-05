@@ -1,7 +1,7 @@
 package main
 
 import (
-	"wallet/internals/core/server"
+	"wallet/internals/server"
 )
 
 const (
