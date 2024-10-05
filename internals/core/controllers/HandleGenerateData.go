@@ -6,6 +6,7 @@ import (
 	"wallet/internals/application"
 	"wallet/internals/core/domain"
 	"wallet/internals/infrastructure/postgres"
+	"wallet/internals/infrastructure/postgres/users"
 )
 
 func HandleCreateUser(w http.ResponseWriter, r *http.Request) {
@@ -13,10 +14,10 @@ func HandleCreateUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic("Error al conectar a la base de datos")
 	}
-	fmt.Println("Está conectando")
-	userRepo := postgres.NewGormRepository(db)
+
+	userRepo := users.NewGormRepository(db)
 	userService := application.NewUserService(userRepo)
-	fmt.Println("Está inicializando")
+
 	user := domain.User{
 		FirstName: "Heyder Alexis",
 		LastName:  "Rojas Pineda",
