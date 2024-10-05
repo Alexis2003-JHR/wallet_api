@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"wallet/internals/core/server"
+)
+
+const (
+	port = 8014
+)
 
 func main() {
-	fmt.Println("Hiiii")
+	server.InitServer(port)
 }
