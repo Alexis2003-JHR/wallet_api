@@ -1,7 +1,12 @@
 package main
 
 import (
-	"wallet/internals/server"
+	"fmt"
+	"log"
+	"wallet/internals/core/controllers"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 const (
@@ -9,5 +14,14 @@ const (
 )
 
 func main() {
-	server.InitServer(port)
+	r := gin.Default()
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r.POST("/create-user", controllers.HandleCreateUser)
+
+	r.Run(fmt.Sprintf(":%d", port))
 }

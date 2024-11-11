@@ -1,4 +1,4 @@
-package repository
+package user
 
 import "wallet/internals/core/domain"
 

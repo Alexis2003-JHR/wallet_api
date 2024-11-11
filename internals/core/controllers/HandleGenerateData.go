@@ -2,21 +2,23 @@ package controllers
 
 import (
 	"fmt"
-	"net/http"
-	"wallet/internals/application"
 	"wallet/internals/core/domain"
-	"wallet/internals/infrastructure/postgres"
-	"wallet/internals/infrastructure/postgres/users"
+	"wallet/internals/core/services"
+
+	postgres "wallet/cmd/database"
+	"wallet/internals/repository/user"
+
+	"github.com/gin-gonic/gin"
 )
 
-func HandleCreateUser(w http.ResponseWriter, r *http.Request) {
+func HandleCreateUser(c *gin.Context) {
 	db, err := postgres.NewPostgresDB()
 	if err != nil {
 		panic("Error al conectar a la base de datos")
 	}
 
-	userRepo := users.NewGormRepository(db)
-	userService := application.NewUserService(userRepo)
+	userRepo := user.NewGormRepository(db)
+	userService := services.NewUserService(userRepo)
 
 	user := domain.User{
 		FirstName: "Heyder Alexis",

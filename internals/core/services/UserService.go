@@ -1,8 +1,8 @@
-package application
+package services
 
 import (
 	"wallet/internals/core/domain"
-	"wallet/internals/repository"
+	repository "wallet/internals/repository/user"
 )
 
 type UserService struct {
