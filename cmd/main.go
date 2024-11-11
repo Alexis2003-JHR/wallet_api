@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"wallet/internals/core/controllers"
+	"wallet/internals/core/middlewares"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -20,6 +21,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	jwtAuth, err := middlewares.NewJWTAuth("public.key")
+	if err != nil {
+		log.Fatalf("Error la inicializar JWTAuth: %v", err)
+	}
+	r.Use(jwtAuth.Middleware())
 
 	r.POST("/create-user", controllers.HandleCreateUser)
 
