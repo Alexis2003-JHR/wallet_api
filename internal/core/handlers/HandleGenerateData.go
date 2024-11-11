@@ -14,7 +14,12 @@ func (s *UserHandler) HandleCreateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Datos inválidos"})
 	}
 
-	err := s.service.CreateUser(user)
+	err := s.service.EncryptPassword(&user)
+	if err != nil {
+		fmt.Println("Error al encryptar contraseña: ", err)
+	}
+
+	err = s.service.CreateUser(user)
 	if err != nil {
 		fmt.Println("Error al crear usuario: ", err)
 	} else {
