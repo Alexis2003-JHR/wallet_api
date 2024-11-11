@@ -1,11 +1,11 @@
-package controllers
+package handlers
 
 import "wallet/internal/core/services"
 
-type UserHandler struct {
+type WalletHandler struct {
 	service *services.UserService
 }
 
-func NewUserHandler(service *services.UserService) *UserHandler {
-	return &UserHandler{service: service}
+func NewWalletHandler(service *services.UserService) *WalletHandler {
+	return &WalletHandler{service: service}
 }

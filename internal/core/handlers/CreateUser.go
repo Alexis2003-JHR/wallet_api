@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (s *UserHandler) HandleCreateUser(c *gin.Context) {
+func (s *WalletHandler) CreateUser(c *gin.Context) {
 	var user domain.User
 	if err := c.BindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Datos inválidos"})
@@ -21,8 +21,8 @@ func (s *UserHandler) HandleCreateUser(c *gin.Context) {
 
 	err = s.service.CreateUser(user)
 	if err != nil {
-		fmt.Println("Error al crear usuario: ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al crear usuario."})
 	} else {
-		fmt.Println("Usuario creado exitosamente!")
+		c.JSON(http.StatusOK, gin.H{"message": "Usuario creado exitosamente!"})
 	}
 }

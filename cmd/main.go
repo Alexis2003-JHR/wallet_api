@@ -3,11 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"wallet/api"
 	database "wallet/cmd/database"
-	handlers "wallet/internal/core/handlers"
 	"wallet/internal/core/middlewares"
-	"wallet/internal/core/services"
-	repository "wallet/internal/repository/user"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -36,11 +34,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error al inicializar base de datos %v", err)
 	}
-	userRepo := repository.NewGormRepository(db)
-	userService := services.NewUserService(userRepo)
-	userHandler := handlers.NewUserHandler(userService)
 
-	r.POST("/create-user", userHandler.HandleCreateUser)
+	api.InitRouter(r, db)
 
 	r.Run(fmt.Sprintf(":%d", port))
 }
