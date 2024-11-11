@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"log"
-	"wallet/internals/core/controllers"
-	"wallet/internals/core/middlewares"
+	database "wallet/cmd/database"
+	handlers "wallet/internal/core/handlers"
+	"wallet/internal/core/middlewares"
+	"wallet/internal/core/services"
+	repository "wallet/internal/repository/user"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -26,9 +29,18 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error la inicializar JWTAuth: %v", err)
 	}
+
 	r.Use(jwtAuth.Middleware())
 
-	r.POST("/create-user", controllers.HandleCreateUser)
+	db, err := database.NewPostgresDB()
+	if err != nil {
+		log.Fatalf("Error al inicializar base de datos %v", err)
+	}
+	userRepo := repository.NewGormRepository(db)
+	userService := services.NewUserService(userRepo)
+	userHandler := handlers.NewUserHandler(userService)
+
+	r.POST("/create-user", userHandler.HandleCreateUser)
 
 	r.Run(fmt.Sprintf(":%d", port))
 }

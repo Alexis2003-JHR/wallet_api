@@ -1,7 +1,7 @@
 package user
 
 import (
-	"wallet/internals/core/domain"
+	"wallet/internal/core/domain"
 
 	"gorm.io/gorm"
 )

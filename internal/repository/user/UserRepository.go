@@ -1,6 +1,6 @@
 package user
 
-import "wallet/internals/core/domain"
+import "wallet/internal/core/domain"
 
 type UserRepository interface {
 	Create(user *domain.User) error

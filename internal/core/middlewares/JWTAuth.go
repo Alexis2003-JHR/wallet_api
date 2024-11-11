@@ -47,7 +47,7 @@ func (auth *JWTAuth) Middleware() gin.HandlerFunc {
 			return auth.publicKey, nil
 		})
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error al parsear token"})
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error al autenticar el token"})
 			return
 		}
 
