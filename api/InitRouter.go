@@ -16,4 +16,5 @@ func InitRouter(r *gin.Engine, db *gorm.DB) {
 
 	r.POST("/create-user", handler.CreateUser)
 	r.POST("/create-transaction", handler.CreateTransaction)
+	r.POST("/generate-excel", handler.GenerateExcel)
 }
